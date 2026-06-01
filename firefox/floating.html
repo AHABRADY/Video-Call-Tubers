@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CornerFriend - Live</title>
+  <link rel="stylesheet" href="floating.css">
+</head>
+<body>
+  <div id="floating-app">
+
+    <!-- Drag Handle -->
+    <div id="drag-handle" class="drag-handle">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" opacity="0.3">
+        <circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/>
+        <circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>
+        <circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/>
+      </svg>
+    </div>
+
+    <!-- Compact Toggle -->
+    <button id="compact-btn" class="compact-btn" title="Minimize">
+      <svg id="compact-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/>
+        <line x1="10" y1="14" x2="3" y2="21"/><line x1="21" y1="3" x2="14" y2="10"/>
+      </svg>
+    </button>
+
+    <!-- Video Area -->
+    <div id="video-container" class="video-container">
+      <iframe
+        id="buddy-iframe"
+        class="buddy-iframe"
+        allow="autoplay; encrypted-media"
+        allowfullscreen="false"
+        title="Buddy Video"
+      ></iframe>
+
+      <!-- Embedding-disabled error overlay -->
+      <div id="embed-error" class="embed-error">
+        <span class="err-icon">🚫</span>
+        <p class="err-title">Embedding disabled</p>
+        <p class="err-body">This video's creator has disabled embedding on other sites.<br>Try another video, or watch it on YouTube.</p>
+        <a id="watch-yt-link" class="err-link" target="_blank">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+          Open on YouTube
+        </a>
+      </div>
+
+      <!-- Top gradient -->
+      <div class="overlay-top-gradient"></div>
+      <!-- Bottom gradient -->
+      <div class="overlay-bottom-gradient"></div>
+
+      <!-- Top info overlay -->
+      <div id="top-overlay" class="top-overlay">
+        <div class="top-overlay-inner">
+          <div class="live-info">
+            <span class="live-dot-fl"></span>
+            <span id="buddy-name-display" class="buddy-name-text">Live with Buddy</span>
+          </div>
+          <span id="call-duration" class="call-duration">00:00:00</span>
+        </div>
+        <div id="buddy-index" class="buddy-index hidden"></div>
+      </div>
+
+      <!-- Bottom controls overlay -->
+      <div id="bottom-overlay" class="bottom-overlay">
+        <div class="controls-row">
+          <!-- Mute Video -->
+          <button id="mute-btn" class="ctrl-btn" title="Mute/Unmute video">
+            <svg id="mute-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/>
+            </svg>
+          </button>
+
+          <!-- Lofi -->
+          <button id="lofi-btn" class="ctrl-btn" title="Toggle lofi">
+            <svg id="lofi-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+            </svg>
+          </button>
+
+          <!-- Prev -->
+          <button id="prev-btn" class="ctrl-btn hidden" title="Previous buddy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>
+            </svg>
+          </button>
+
+          <!-- Next -->
+          <button id="next-btn" class="ctrl-btn hidden" title="Next buddy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
+            </svg>
+          </button>
+
+          <!-- End Call -->
+          <button id="end-call-fl-btn" class="ctrl-btn ctrl-btn-red" title="End call">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.68 13.31a16 16 0 003.41 2.6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7 2 2 0 012 1.94V19a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.42 19.42 0 013.07 8.81 2 2 0 015 6.63h3.51a2 2 0 011.94 1.7 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L9.43 14.4"/>
+              <line x1="23" y1="1" x2="1" y2="23"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Volume slider (only when lofi playing) -->
+        <div id="volume-row" class="vol-row hidden">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2">
+            <circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49m-8.48-.01a6 6 0 010-8.49"/>
+          </svg>
+          <input id="vol-slider-fl" type="range" min="0" max="100" value="50" class="vol-slider-fl" />
+          <span id="station-label-fl" class="station-label-fl">Groove Salad</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resize Handle -->
+    <div id="resize-handle" class="resize-handle">
+      <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.3)" stroke-width="2">
+        <path stroke-linecap="round" d="M4 20L20 4M9 20L20 9M14 20L20 14"/>
+      </svg>
+    </div>
+
+  </div>
+
+  <!-- Audio element for lofi -->
+  <audio id="lofi-audio" crossorigin="anonymous"></audio>
+
+  <script src="shared.js"></script>
+  <script src="floating.js"></script>
+</body>
+</html>

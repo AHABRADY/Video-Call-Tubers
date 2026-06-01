@@ -1,0 +1,398 @@
+/* ================================
+   CornerFriend - Floating Window
+   ================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --overlay-opacity: 0;
+  --transition: 0.25s ease;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#floating-app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: #0a0a0a;
+}
+
+/* ================================
+   DRAG HANDLE
+   ================================ */
+
+.drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 28px;
+  height: 22px;
+  z-index: 30;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+/* ================================
+   COMPACT TOGGLE
+   ================================ */
+
+.compact-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 30;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.35);
+  border: none;
+  border-radius: 4px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition), background 0.15s, color 0.15s;
+}
+.compact-btn:hover {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+}
+#floating-app:hover .compact-btn {
+  opacity: 1;
+}
+
+/* ================================
+   VIDEO AREA
+   ================================ */
+
+.video-container {
+  position: relative;
+  flex: 1;
+  background: #000;
+  overflow: hidden;
+}
+
+.buddy-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: auto;
+}
+
+/* Gradient overlays */
+.overlay-top-gradient {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--transition);
+  z-index: 5;
+}
+.overlay-bottom-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--transition);
+  z-index: 5;
+}
+
+/* ================================
+   OVERLAYS
+   ================================ */
+
+.top-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 8px;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity var(--transition);
+  pointer-events: auto;
+}
+
+.top-overlay-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.live-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.live-dot-fl {
+  position: relative;
+  display: inline-flex;
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+}
+.live-dot-fl::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #4ade80;
+  opacity: 0.6;
+  animation: ping-fl 1.2s ease-in-out infinite;
+}
+.live-dot-fl::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  background: #4ade80;
+}
+@keyframes ping-fl {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.8); opacity: 0; }
+}
+
+.buddy-name-text {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+}
+
+.call-duration {
+  font-size: 9px;
+  font-family: 'SF Mono', 'Courier New', monospace;
+  color: rgba(255,255,255,0.6);
+}
+
+.buddy-index {
+  font-size: 8px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 1px;
+}
+
+.bottom-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 8px;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity var(--transition);
+  pointer-events: auto;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+/* ================================
+   CONTROL BUTTONS
+   ================================ */
+
+.ctrl-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  transition: all 0.15s;
+  padding: 0;
+}
+.ctrl-btn:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+.ctrl-btn-lofi-active {
+  background: rgba(74,222,128,0.3) !important;
+  color: #4ade80 !important;
+}
+.ctrl-btn-lofi-active:hover {
+  background: rgba(74,222,128,0.45) !important;
+}
+
+.ctrl-btn-muted {
+  color: rgba(255,255,255,0.35) !important;
+}
+
+.ctrl-btn-red {
+  background: rgba(239,68,68,0.7) !important;
+  color: #fff !important;
+}
+.ctrl-btn-red:hover {
+  background: rgba(239,68,68,0.9) !important;
+}
+
+/* ================================
+   VOLUME ROW
+   ================================ */
+
+.vol-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.vol-slider-fl {
+  width: 72px;
+  height: 3px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+.vol-slider-fl::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4ade80;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(74,222,128,0.5);
+}
+
+.station-label-fl {
+  font-size: 8px;
+  color: rgba(255,255,255,0.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+}
+
+/* ================================
+   RESIZE HANDLE
+   ================================ */
+
+.resize-handle {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  cursor: se-resize;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+#floating-app:hover .resize-handle {
+  opacity: 1;
+}
+
+/* ================================
+   COMPACT MODE
+   ================================ */
+
+body.compact #floating-app {
+  border-radius: 8px;
+}
+body.compact .video-container,
+body.compact .drag-handle {
+  pointer-events: none;
+}
+
+/* ================================
+   ERROR OVERLAY (Error 152/153)
+   ================================ */
+
+.embed-error {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: rgba(10,10,12,0.97);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  gap: 10px;
+  border-radius: 12px;
+}
+.embed-error.visible {
+  display: flex;
+}
+.err-icon {
+  font-size: 28px;
+}
+.err-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f4f4f5;
+}
+.err-body {
+  font-size: 10px;
+  color: #71717a;
+  line-height: 1.5;
+}
+.err-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 6px 12px;
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.err-link:hover {
+  background: rgba(239,68,68,0.25);
+}
