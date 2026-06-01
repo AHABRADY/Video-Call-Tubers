@@ -1,6 +1,6 @@
 <div align="center">
   <img src="chrome/icons/icon128.png" alt="VideoCallTubers Logo" width="128">
-  <h1>VideoCallTubers (formerly CornerFriend)</h1>
+  <h1>VideoCallTubers </h1>
   <p><strong>Turn any YouTube video into a persistent, floating "FaceTime-style" buddy that follows you across the web.</strong></p>
 </div>
 
