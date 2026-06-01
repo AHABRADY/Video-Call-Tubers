@@ -16,6 +16,14 @@ It feels exactly like being on a FaceTime call with a study buddy or virtual cow
 
 ---
 
+## 🎥 Video Tutorial
+
+Want to see VideoCallTubers in action and learn how to set it up? Check out our quick video walkthrough:
+
+👉 **[Watch the Video Tutorial on YouTube](https://www.youtube.com/watch?v=dOk-5KVoek0)**
+
+---
+
 ## ✨ Features
 
 - **👀 Always On Top:** Your virtual buddy follows you seamlessly as you switch between tabs. No restarting, no refreshing.
