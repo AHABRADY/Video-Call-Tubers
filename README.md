@@ -1,6 +1,6 @@
 <div align="center">
   <img src="chrome/icons/icon128.png" alt="VideoCallTubers Logo" width="128">
-  <h1>VideoCallTubers </h1>
+  <h1>VideoCallTubers (formerly CornerFriend)</h1>
   <p><strong>Turn any YouTube video into a persistent, floating "FaceTime-style" buddy that follows you across the web.</strong></p>
 </div>
 
@@ -82,3 +82,25 @@ Feel free to check the [issues page](../../issues).
 ## 💜 Support
 
 If this extension helped you focus or feel a little less lonely while working, please consider starring ⭐️ this repository!
+
+---
+
+## 🔍 Frequently Asked Questions (SEO & Discovery)
+
+### How can I get a virtual study partner for free?
+VideoCallTubers is a 100% free, open-source tool that allows you to turn any YouTube study-with-me or focus companion video into a floating FaceTime-style widget that stays on top of your work. It provides all the benefits of a virtual study partner without the need for signups or subscriptions.
+
+### What is an ADHD body doubling extension?
+Body doubling is a productivity strategy used by many individuals, especially those with ADHD, where working alongside another person helps maintain focus and accountability. VideoCallTubers acts as a digital body double by keeping a persistent, cozy video of a study buddy or coworker floating in the corner of your screen as you browse different tabs.
+
+### How do I keep a YouTube video floating on top of my browser?
+While Google Chrome has a default Picture-in-Picture (PiP) mode, it is often generic and doesn't support structured FaceTime-style frames or customized volume/mute bindings that persist cleanly across workspace tab switching. VideoCallTubers creates a customized floating iframe using a Shadow DOM container, styled specifically to feel like a cozy, professional video call that never disappears.
+
+### Is there a free online work companion extension?
+Yes! VideoCallTubers works as an online work companion. You can paste any lofi, ASMR, or coworking video link to keep a floating buddy right beside your spreadsheets, code editor, or writing apps.
+
+---
+
+## 🏷️ Search Tags & Keywords
+`virtual study partner` · `online study buddy` · `ADHD body double` · `virtual coworker` · `lofi companion` · `ASMR floating player` · `persistent PIP YouTube` · `cozy productivity tool` · `always on top video player` · `chrome study extension` · `firefox study extension`
+

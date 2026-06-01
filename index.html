@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoCallTubers | Your Cozy Virtual Study Partner & Work Buddy</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="VideoCallTubers is a free Chrome & Firefox extension that turns any YouTube video into a persistent, floating FaceTime-style study buddy or online work companion that follows you across the web. Perfect for ADHD body doubling.">
+    <meta name="keywords" content="virtual study partner, online study buddy, ADHD body double, virtual coworker, lofi companion, ASMR floating player, persistent PIP YouTube, cozy productivity tool, chrome study extension, firefox study extension">
+    <meta name="author" content="VideoCallTubers">
+    <link rel="canonical" href="https://github.com/AHABRADY/Video-Call-Tubers">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="VideoCallTubers | Your Cozy Virtual Study Partner & Work Buddy">
+    <meta property="og:description" content="Turn any YouTube video into a persistent, floating FaceTime-style study companion. Perfect for body doubling, ADHD focus, or cozy coworking.">
+    <meta property="og:image" content="chrome/icons/icon128.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="VideoCallTubers | Your Cozy Virtual Study Partner">
+    <meta property="twitter:description" content="Turn any YouTube video into a persistent, floating FaceTime-style study companion. Free and Open Source.">
+    <meta property="twitter:image" content="chrome/icons/icon128.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <style>
+        :root {
+            --bg-color: #0b0813;
+            --card-bg: rgba(20, 16, 35, 0.65);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-glow: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        .btn-github {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-github:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        header.hero {
+            padding: 6rem 0 4rem 0;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #d8b4fe;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        h1.hero-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #d8b4fe, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            font-weight: 400;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--primary-glow);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(20, 16, 35, 0.6);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
+        }
+
+        /* Mockup Window */
+        .mockup-wrapper {
+            max-width: 900px;
+            margin: 0 auto 6rem auto;
+            position: relative;
+        }
+
+        .mockup-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: var(--primary-glow);
+            filter: blur(80px);
+            opacity: 0.25;
+            z-index: -1;
+            border-radius: 20px;
+        }
+
+        .mockup-container {
+            background: rgba(12, 10, 20, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .mockup-header {
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+
+        .mockup-address {
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            padding: 0.3rem 1.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: 2rem;
+            flex-grow: 0.5;
+            text-align: left;
+        }
+
+        .mockup-body {
+            flex-grow: 1;
+            background: #110e1a;
+            padding: 1.5rem;
+            position: relative;
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Fake Workspace Content */
+        .fake-workspace {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .fake-code-line {
+            height: 14px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* Float Buddy Overlay mockup */
+        .fake-buddy {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            width: 260px;
+            height: 170px;
+            background: rgba(20, 16, 35, 0.85);
+            border: 2px solid rgba(168, 85, 247, 0.6);
+            border-radius: 14px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(15px);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .fake-buddy-video {
+            flex-grow: 1;
+            background-image: radial-gradient(circle at center, #2e1065 0%, #1e1b4b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .fake-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            box-shadow: 0 0 15px rgba(168,85,247,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .fake-buddy-controls {
+            background: rgba(255,255,255,0.05);
+            border-top: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .caller-status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .caller-pulse {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.4; }
+            100% { transform: scale(0.9); opacity: 1; }
+        }
+
+        .fake-buddy-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .fake-action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-accordion {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active {
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-main);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1.hero-title {
+                font-size: 2.8rem;
+            }
+            p.hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <a href="#" class="logo-container">
+                <img src="chrome/icons/icon128.png" class="logo-img" alt="VideoCallTubers Logo">
+                VideoCallTubers
+            </a>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="https://github.com/AHABRADY/Video-Call-Tubers" class="btn-github" target="_blank">
+                    <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    GitHub
+                </a>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <header class="hero">
+            <span class="badge">Open Source Focus Extension</span>
+            <h1 class="hero-title">Your Cozy, Floating<br>Virtual Study Partner</h1>
+            <p class="hero-subtitle">Turn any YouTube video into a persistent, FaceTime-style companion that stays on top across all your tabs. Boost focus, cure loneliness, and master accountability.</p>
+            
+            <div class="cta-container">
+                <a href="https://github.com/AHABRADY/Video-Call-Tubers" class="btn-primary" target="_blank">
+                    Install for Chrome
+                </a>
+                <a href="https://github.com/AHABRADY/Video-Call-Tubers" class="btn-secondary" target="_blank">
+                    Install for Firefox
+                </a>
+            </div>
+        </header>
+
+        <!-- Interactive Mockup Section -->
+        <div class="mockup-wrapper">
+            <div class="mockup-glow"></div>
+            <div class="mockup-container">
+                <div class="mockup-header">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                    <div class="mockup-address">https://docs.google.com/document/u/0/my-essay</div>
+                </div>
+                <div class="mockup-body">
+                    <!-- Fake Google Doc layout representing study environment -->
+                    <div class="fake-workspace">
+                        <div class="fake-code-line" style="width: 40%; height: 22px; background: rgba(255,255,255,0.08); margin-bottom: 1.5rem;"></div>
+                        <div class="fake-code-line" style="width: 85%;"></div>
+                        <div class="fake-code-line" style="width: 90%;"></div>
+                        <div class="fake-code-line" style="width: 75%;"></div>
+                        <div class="fake-code-line" style="width: 80%;"></div>
+                        <div class="fake-code-line" style="width: 40%; margin-bottom: 2rem;"></div>
+                        
+                        <div class="fake-code-line" style="width: 85%;"></div>
+                        <div class="fake-code-line" style="width: 60%;"></div>
+                        <div class="fake-code-line" style="width: 75%;"></div>
+                    </div>
+                    <!-- Injected VideoCallTubers Floating Mockup -->
+                    <div class="fake-buddy">
+                        <div class="fake-buddy-video">
+                            <div class="fake-avatar">🎧</div>
+                        </div>
+                        <div class="fake-buddy-controls">
+                            <div class="caller-status">
+                                <div class="caller-pulse"></div>
+                                Video Call
+                            </div>
+                            <div class="fake-buddy-actions">
+                                <div class="fake-action-btn">🎙️</div>
+                                <div class="fake-action-btn" style="background-color: #ef4444;">❌</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="section-header">
+                <h2 class="section-title">Designed for Ultimate Accountability</h2>
+                <p class="section-subtitle">We built the extension with specialized micro-interactions that keep your workflow fluid and aesthetic.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👀</div>
+                    <h3 class="feature-title">Always-On-Top Floating Mode</h3>
+                    <p class="feature-desc">Your virtual companion follows you seamlessly as you switch between your editor, database, and lecture slides. No disruptions, no resets.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Cozy ADHD Body Doubling</h3>
+                    <p class="feature-desc">Perfect for studying. The simulated FaceTime call makes you feel like someone is in the room keeping you accountable, helping you break focus paralysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">100% Privacy & Open Source</h3>
+                    <p class="feature-desc">No tracking, no cookies, no account setups, and no background processes. Everything runs strictly on your machine, leveraging secure no-cookie YouTube embeds.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq" id="faq">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Got questions about VideoCallTubers? We've got answers.</p>
+            </div>
+
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <div class="faq-question">How does VideoCallTubers act as a virtual study partner? <span>+</span></div>
+                    <div class="faq-answer">
+                        By turning any YouTube study-with-me video into a persistent floating window, VideoCallTubers acts as a virtual "body double." This psychological effect provides social accountability, boosting concentration and keeping you focused on your work.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is the extension fully free? <span>+</span></div>
+                    <div class="faq-answer">
+                        Yes! VideoCallTubers is fully free and open-source. Since we host it on GitHub, you can inspect the code yourself. There are zero subscriptions, paywalls, or features blocked behind premium tiers.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Does it track my search queries or data? <span>+</span></div>
+                    <div class="faq-answer">
+                        No. The extension operates entirely inside your local browser storage. We have no external databases or analytics tools. We also strictly use YouTube's privacy-enhanced embed domain to ensure no cross-site cookies are tracked on your system.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How does it handle tab switching without resetting? <span>+</span></div>
+                    <div class="faq-answer">
+                        We developed a background state worker that tracks active active calls. When you switch workspace tabs, our content injector is already briefed on the status, letting your floating companion stay persistent and loaded on the exact same video timestamp!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-links">
+                <a href="https://github.com/AHABRADY/Video-Call-Tubers" class="footer-link">GitHub Repository</a>
+                <a href="PRIVACY.md" class="footer-link">Privacy Policy</a>
+                <a href="TERMS.md" class="footer-link">Terms of Service</a>
+            </div>
+            <p>&copy; 2026 VideoCallTubers. Released under All Rights Reserved Proprietary License.</p>
+        </footer>
+    </div>
+
+    <!-- Interactive FAQ Script -->
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all
+                faqItems.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('span').textContent = '+';
+                });
+
+                // Toggle selected
+                if (!isActive) {
+                    item.classList.add('active');
+                    item.querySelector('span').textContent = '-';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
